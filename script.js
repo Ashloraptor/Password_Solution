@@ -1,19 +1,22 @@
 // Assignment code here
-var lowerCase= ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-var upperCase= ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-var specialCharacter = [" ", "!", '"', "#", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", ":", ";", "<", "=", ">", "?", "@", "[", "", "]", "^", "_", "`", "{", "}", "~"];
+var lowerCase= ["abcdefghijklmnopqrstuvwxyz"];
+var upperCase= ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
+var specialCharacter = [" !#$%&'()*+,-./:;<=>?@[\]^_`{|}~"]
+//var length= (user input?)
+// .split("");
 
-  
-  
-//slider from 8-128
-var slider = document.getElementById("characterLength");
-var output = document.getElementById("length");
-output.innerHTML = slider.value; // Display the default slider value
-
-// Updates the slider value
-slider.oninput = function() {
-  output.innerHTML = this.value;
+var writePassword= function() {
+  //prompt user if they want lowerCase, 
+  var lowerSelection = window.prompt("Include lower case characters?");
+  //upperCase, 
+  var upperSelection = window.prompt("Include upper case characters?");
+  //specialCharacter, 
+  var specialSelection = window.prompt("Include special characters?");
+  //and to type in length
+  //if less than 8 characters or greater than 128 characters
+  //then return prompt "Invalid value. Please enter a numeric value between 8 and 128."
 }
+  
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -29,3 +32,6 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
+
+
+writePassword();
