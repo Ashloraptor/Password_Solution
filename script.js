@@ -1,12 +1,9 @@
 // Assignment code here
-var lowerCase= ["abcdefghijklmnopqrstuvwxyz"];
-var upperCase= ["ABCDEFGHIJKLMNOPQRSTUVWXYZ"];
-var specialCharacter = [" !#$%&'()*+,-./:;<=>?@[\]^_`{|}~"];
+var lowerCase = "abcdefghijklmnopqrstuvwxyz".split("");
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+var specialCharacter = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~".split("");
 
-// .split("");
-//var input = array[Math.floor(Math.random() * characterLength);
-
-var writePassword= function() {
+function getPasswordOptions() {
   //prompt user if they want lowerCase, 
   var lowerSelection = window.confirm("Include lower case characters?");
   //upperCase, 
@@ -16,57 +13,71 @@ var writePassword= function() {
   //and to type in length
 
   if (lowerSelection === false && upperSelection === false && specialSelection === false) {
-    window.alert("No one can help you."); return "Invalid entry."
+    window.alert("No one can help you."); return null;
     //make it stop.
-    }
-
-  
-
-  var lengthSelection = window.prompt("Enter requested character length by numerical value between 8 and 128.");
-    //if less than 8 characters or greater than 128 characters
-
-  if (lengthSelection<8 || lengthSelection>128) {
-  //then return prompt "Invalid value. Please enter a numeric value between 8 and 128."
-  window.alert("Invalid value.");
-
-  
-  var lengthSelection = window.prompt("Enter requested character length by numerical value between 8 and 128.");
-  //But what if user inputs an alphabetical value and not numeric?
   }
+
+  var lengthSelection = window.prompt("Enter requested character length by numerical value between 8 and 128.");
+  //if less than 8 characters or greater than 128 characters
+
+  if (lengthSelection < 8 || lengthSelection > 128) {
+    //then return prompt "Invalid value. Please enter a numeric value between 8 and 128."
+    window.alert("Invalid value."); return null;
+  }
+
+  //If user inputs an alphabetical value and not numeric:
+  if (Number.isNaN(lengthSelection)) {
+    window.alert("Invalid value."); return null;
+  }
+
+  //Store user input
+  var passwordInput = {
+    lowerSelection: lowerSelection,
+    upperSelection: upperSelection,
+    specialSelection: specialSelection,
+    lengthSelection: lengthSelection,
+  };
+  return passwordInput;
 }
 
-//if (lowerSelection && upperSelection && specialSelection) {
-//then var input = lowerCase or upperCase or specialCharacter .split
-//}
+//Randomizing characters from arrays
+function getRandom(arr) {
+  var randIndex = Math.floor(Math.random() * arr.length);
+  var randCharacter = arr[randIndex];
+  return randCharacter;
+}
 
+//Generating password with user input
+function generatePassword() {
+  var options = getPasswordOptions();
 
+  var result = [];
 
-//else if (lowerSelection && upperSelection) {
-//then var input = random [lowerCase or upperCase] .split
-//}
+  var possibleCharacters = [];
 
-//else if (lowerSelection && specialSelection) {
-//then var input = random [lowerCase or  specialCharacter] .split
-//}
+  if (options.lowerSelection) {
+    possibleCharacters = possibleCharacters.concat(lowerCase);
+  }
 
-//else if (upperSelection && specialSelection) {
-//then var input = random [upperCase or specialCharacter] .split
-//}
+  if (options.upperSelection) {
+    possibleCharacters = possibleCharacters.concat(upperCase);
+  }
 
+  if (options.specialSelection) {
+    possibleCharacters = possibleCharacters.concat(specialCharacter);
+  }
 
-//else if (lowerSelection) {
-//then var input = random [lowerCase] .split
-//}
+  //Generate character selection for password length
+  for (var i = 0; i < options.lengthSelection; i++) {
+    var possibleCharacter = getRandom(possibleCharacters);
+    result.push(possibleCharacter);
+  }
 
-//else if (upperSelection) {
-//then var input = random [upperCase] .split
-//}
+  //Enter randomized characters into a string within writePassword
+  result = result.join("")
+  return result;
 
-//else (specialSelection) {
-//then var input = [Math.floor(Math.random() * specialCharacter.length); but incorporate .split somehow
-//}
-
-  
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -82,6 +93,3 @@ function writePassword() {
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
-writePassword();
