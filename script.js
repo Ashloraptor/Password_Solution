@@ -1,6 +1,7 @@
 // Assignment code here
 var lowerCase = "abcdefghijklmnopqrstuvwxyz".split("");
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+var numeric = "0123456789".split("");
 var specialCharacter = "!#$%&'()*+,-./:;<=>?@[\]^_`{|}~".split("");
 
 function getPasswordOptions() {
@@ -8,11 +9,13 @@ function getPasswordOptions() {
   var lowerSelection = window.confirm("Include lower case characters?");
   //upperCase, 
   var upperSelection = window.confirm("Include upper case characters?");
+  //numeric
+  var numeric= window.confirm("Include numeric characters?");
   //specialCharacter, 
   var specialSelection = window.confirm("Include special characters?");
   //and to type in length
 
-  if (lowerSelection === false && upperSelection === false && specialSelection === false) {
+  if (lowerSelection === false && upperSelection === false && specialSelection === false && numeric === false) {
     window.alert("No one can help you."); return null;
     //make it stop.
   }
@@ -34,6 +37,7 @@ function getPasswordOptions() {
   var passwordInput = {
     lowerSelection: lowerSelection,
     upperSelection: upperSelection,
+    numeric: numeric,
     specialSelection: specialSelection,
     lengthSelection: lengthSelection,
   };
@@ -61,6 +65,10 @@ function generatePassword() {
 
   if (options.upperSelection) {
     possibleCharacters = possibleCharacters.concat(upperCase);
+  }
+  
+  if (options.numeric) {
+    possibleCharacters = possibleCharacters.concat(numeric);
   }
 
   if (options.specialSelection) {
